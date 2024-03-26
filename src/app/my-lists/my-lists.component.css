@@ -1,0 +1,33 @@
+.list-container {
+    border-right: 1px solid #ccc;
+    padding-right: 20px;
+  }
+  
+  .list-group-item {
+    cursor: pointer;
+  }
+  
+  .list-item {
+    transition: background-color 0.3s;
+  }
+  
+  .list-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .create-list-item {
+    background-color: #e9ecef;
+    transition: background-color 0.3s;
+  }
+  
+  .create-list-item:hover {
+    background-color: #dee2e6;
+  }
+  
+  .selected-lists-container {
+    padding-left: 20px;
+  }
+  
+  .selected-list {
+    cursor: move;
+  }

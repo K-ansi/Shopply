@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/1af61283-4df9-4241-b306-2a6563a11db6/resourceGroups/shopply_group/providers/Microsoft.Web/sites/shopply",
+    "appService.deploySubpath": "."
+}

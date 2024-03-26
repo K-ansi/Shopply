@@ -1,0 +1,79 @@
+<div class="card">
+  <div class="card-header">
+    <h3>{{ list.name }}</h3>
+    <button type="button" class="close" (click)="onCloseList()">&times;</button>
+  </div>
+  <div class="card-body">
+    <p>Owner: {{ list.owner }}</p>
+    <p>Members: {{ list.members.join(', ') }}</p>
+    <button *ngIf="!showItemSearch" (click)="toggleItemSearch()">Add Item</button>
+    <div *ngIf="showItemSearch" class="item-search">
+      <input type="text" (input)="onItemSearchInput($event)" placeholder="Search items..." #searchInput>
+      <table class="item-search-results" *ngIf="searchInput.value.trim() !== ''">
+        <thead>
+          <tr>
+            <th>Shop</th>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of itemSearchResults">
+            <td>{{ item.store || '-' }}</td>
+            <td>{{ item.name || '-' }}</td>
+            <td>{{ item.price ? '£' + item.price.toFixed(2) : '-' }}</td>
+            <td>
+              <input type="number" [(ngModel)]="item.quantity" min="1">
+            </td>
+            <td>
+              <button (click)="addItemToList(item)">Add</button>
+            </td>
+          </tr>
+          <tr *ngIf="searchInput.value.trim() !== ''">
+            <td colspan="5" class="create-item-button" (click)="createItem()">Create Item</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <table class="item-list table table-striped">
+      <thead>
+        <tr>
+          <th>Shop</th>
+          <th>Name</th>
+          <th>Price * Amount</th>
+          <th>Amount</th>
+          <th>Added By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list.items">
+          <td>{{ item.item?.store || '-' }}</td>
+          <td>{{ item.item?.name || '-' }}</td>
+          <td>{{ item.item?.price ? '£' + (item.item.price * item.amount).toFixed(2) : '-' }}</td>
+          <td>{{ item.amount }}</td>
+          <td>{{ item.user }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="showCreateItemForm" class="create-item-form">
+    <h4>Create Item</h4>
+    <form (ngSubmit)="onCreateItem()" #createItemForm="ngForm">
+      <div class="form-group">
+        <label for="itemName">Item Name</label>
+        <input type="text" class="form-control" id="itemName" name="itemName" [(ngModel)]="newItem.name" required>
+      </div>
+      <div class="form-group">
+        <label for="store">Store</label>
+        <input type="text" class="form-control" id="store" name="store" [(ngModel)]="newItem.store">
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" name="price" [(ngModel)]="newItem.price" step="0.01" min="0">
+      </div>
+      <!-- Add image upload field here -->
+      <button type="submit" class="btn btn-primary" [disabled]="!createItemForm.form.valid">Create</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelCreateItem()">Cancel</button>
+    </form>
+  </div>
+</div>

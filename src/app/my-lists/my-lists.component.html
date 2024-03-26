@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 list-container">
+      <h2>My Shopping Lists</h2>
+      <div *ngIf="lists.length === 0">
+        <p>You are currently not a part of any shopping list.</p>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item list-item" *ngFor="let list of lists" (click)="selectList(list)">
+          {{ list.name }}
+        </li>
+        <li class="list-group-item list-item create-list-item" (click)="createNewList()">
+          <i class="fas fa-plus"></i> Create New List
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-8 selected-lists-container">
+      <div *ngFor="let selectedList of selectedLists" class="mb-4 selected-list">
+        <app-list-details [list]="selectedList" (closeList)="closeList($event)"></app-list-details>
+      </div>
+    </div>
+  </div>
+</div>
